@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { getProductById } from '../services/api';
 
 export default class Produto extends Component {
@@ -33,3 +34,8 @@ export default class Produto extends Component {
     );
   }
 }
+
+Produto.propTypes = {
+  match: PropTypes.isRequired,
+  id: PropTypes.shape({}).isRequired,
+};
