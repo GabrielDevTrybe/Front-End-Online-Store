@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { getCategories, getProductsFromCategoryAndQuery } from '../services/api';
+import { getCategories, getProductsFromCategoryAndQuery, getProductsFromCategory,
+} from '../services/api';
 import CriarProdutos from './CriarProdutos';
 
 export default class Pesquisa extends Component {
@@ -31,6 +32,12 @@ export default class Pesquisa extends Component {
     this.setState({ products });
   };
 
+  getCategorieProduct = async (e) => {
+    const resultados = await getProductsFromCategory(e.target.id);
+    const products = resultados.results;
+    this.setState({ products });
+  };
+
   render() {
     const { categories, alvo, products } = this.state;
     return (
@@ -54,9 +61,14 @@ export default class Pesquisa extends Component {
         <Link to="/carrinho" data-testid="shopping-cart-button">Carrinho</Link>
         { categories.map((categorie) => (
           <div key={ categorie.id }>
-            <label htmlFor="categorie" data-testid="category">
+            <label htmlFor={ categorie.id } data-testid="category">
               {categorie.name}
-              <input type="radio" id="categorie" />
+              <input
+                type="radio"
+                id={ categorie.id }
+                name="categories"
+                onClick={ this.getCategorieProduct }
+              />
             </label>
           </div>
         ))}
