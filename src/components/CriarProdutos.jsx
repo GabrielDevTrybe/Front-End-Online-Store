@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 export default class CriarProdutos extends Component {
@@ -12,11 +13,13 @@ export default class CriarProdutos extends Component {
     return (
       <div>
         {produtos.map((e) => (
-          <div key={ e.id } data-testid="product">
-            <img src={ e.thumbnail } alt={ e.title } />
-            <h2>{e.title}</h2>
-            <p>{e.price}</p>
-          </div>
+          <Link to={ `/produtos/${e.id}` } key={ e.id } data-testid="product-detail-link">
+            <div data-testid="product">
+              <img src={ e.thumbnail } alt={ e.title } />
+              <h2>{e.title}</h2>
+              <p>{e.price}</p>
+            </div>
+          </Link>
         ))}
       </div>
     );
