@@ -8,8 +8,8 @@ export default class App extends Component {
     return (
       <BrowserRouter>
         <Switch>
-          <Route exact path="/" Component={ Pesquisa } />
-          <Route path="/carrinho" Component={ Carrinho } />
+          <Route exact path="/" component={ Pesquisa } />
+          <Route path="/carrinho" component={ Carrinho } />
         </Switch>
       </BrowserRouter>
     );
