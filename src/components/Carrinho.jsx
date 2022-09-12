@@ -25,7 +25,7 @@ export default class Carrinho extends Component {
 
   render() {
     const { carrinho } = this.state;
-    if (carrinho === null) {
+    if (carrinho === null || carrinho.length === 0) {
       return (
         <h2 data-testid="shopping-cart-empty-message">Seu carrinho está vazio</h2>
       );

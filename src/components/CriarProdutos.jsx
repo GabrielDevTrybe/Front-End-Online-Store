@@ -7,6 +7,12 @@ export default class CriarProdutos extends Component {
     carrinho: [],
   };
 
+  // componentDidMount() {
+  //   const getLocalItem = localStorage.getItem('produtos');
+  //   const carrinho = JSON.parse(getLocalItem);
+  //   this.setState({ carrinho });
+  // }
+
   addCart = (produto) => {
     const { carrinho } = this.state;
     carrinho.push(produto);
