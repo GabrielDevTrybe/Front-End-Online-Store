@@ -6,11 +6,23 @@ import { getProductById } from '../services/api';
 export default class Produto extends Component {
   state = {
     produto: {},
+    carrinho: [],
   };
 
   async componentDidMount() {
     await this.getProduct();
+    // const getLocalItem = localStorage.getItem('produtos');
+    // const carrinho = JSON.parse(getLocalItem);
+    // this.setState({ carrinho });
   }
+
+  addCart = (produto) => {
+    const { carrinho } = this.state;
+    carrinho.push(produto);
+    const stringify = JSON.stringify(carrinho);
+    localStorage.setItem('produtos', stringify);
+    this.setState({ carrinho });
+  };
 
   getProduct = async () => {
     const { match: { params: { id } } } = this.props;
@@ -30,6 +42,13 @@ export default class Produto extends Component {
         <h1 data-testid="product-detail-name">{ produto.title }</h1>
         <p data-testid="product-detail-price">{ produto.price }</p>
         <Link data-testid="shopping-cart-button" to="/carrinho">Carrinho</Link>
+        <button
+          type="button"
+          onClick={ () => this.addCart(produto) }
+          data-testid="product-detail-add-to-cart"
+        >
+          Adicionar ao carrinho
+        </button>
       </div>
     );
   }
