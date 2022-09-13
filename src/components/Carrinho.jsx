@@ -17,12 +17,14 @@ export default class Carrinho extends Component {
   filterCarrinho = (carrinho) => {
     const carroFilt = [];
     const getObject = (obj) => JSON.stringify(obj);
-    carrinho.forEach((item) => {
-      const temp = carroFilt.some((i) => getObject(i.title) === getObject(item.title));
-      if (!temp) {
-        carroFilt.push(item);
-      }
-    });
+    if (carrinho !== null) {
+      carrinho.forEach((item) => {
+        const temp = carroFilt.some((i) => getObject(i.title) === getObject(item.title));
+        if (!temp) {
+          carroFilt.push(item);
+        }
+      });
+    }
     this.setState({ carrinhoSemRepetições: carroFilt });
   };
 
