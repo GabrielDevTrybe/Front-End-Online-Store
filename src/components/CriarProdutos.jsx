@@ -36,6 +36,7 @@ export default class CriarProdutos extends Component {
       <div>
         {produtos.map((e) => (
           <>
+            {/* {this.checkShippingFree(e)} */}
             <Link
               to={ `/produtos/${e.id}` }
               key={ e.id }
@@ -45,6 +46,9 @@ export default class CriarProdutos extends Component {
                 <img src={ e.thumbnail } alt={ e.title } />
                 <h2>{e.title}</h2>
                 <p>{e.price}</p>
+                {e.shipping.free_shipping
+                  ? <p data-testid="free-shipping">Frete Grátis</p>
+                  : null}
               </div>
             </Link>
             <button
