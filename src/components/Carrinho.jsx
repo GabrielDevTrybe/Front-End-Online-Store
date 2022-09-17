@@ -39,12 +39,15 @@ export default class Carrinho extends Component {
     const { name } = target;
     const { carrinho } = this.state;
     const produtoIncrementado = carrinho.find((item) => item.id === name);
-    carrinho.push(produtoIncrementado);
-    const stringified = JSON.stringify(carrinho);
-    localStorage.setItem('produtos', stringified);
-    const storageItems = localStorage.getItem('produtos');
-    const parsed = JSON.parse(storageItems);
-    this.setState({ carrinho: parsed });
+    console.log(produtoIncrementado);
+    if (produtoIncrementado.available_quantity > this.contador(produtoIncrementado)) {
+      carrinho.push(produtoIncrementado);
+      const stringified = JSON.stringify(carrinho);
+      localStorage.setItem('produtos', stringified);
+      const storageItems = localStorage.getItem('produtos');
+      const parsed = JSON.parse(storageItems);
+      this.setState({ carrinho: parsed });
+    }
   };
 
   decreaseQuantity = ({ target }) => {
