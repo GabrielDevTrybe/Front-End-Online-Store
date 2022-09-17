@@ -36,7 +36,7 @@ export default class FormsCheckout extends Component {
   }
 
   validationInputs() {
-    const { fullName, email, cpf, phone, cep, address, paymentMethod } = this.state;
+    const { fullName, email, cpf, phone, cep, address } = this.state;
     let textInputs = false;
     let radioInputs = false;
     if (fullName.length !== 0
