@@ -10,10 +10,16 @@ export default class Pesquisa extends Component {
     categories: [],
     alvo: '',
     products: [],
+    carrinhoLength: 0,
   };
 
   async componentDidMount() {
     await this.getCategoriesFromApi();
+    const getLocalItem = localStorage.getItem('produtos');
+    const carrinho = JSON.parse(getLocalItem);
+    if (carrinho !== null) {
+      this.setState({ carrinhoLength: carrinho.length });
+    }
   }
 
   handleChange = ({ target }) => {
@@ -38,8 +44,18 @@ export default class Pesquisa extends Component {
     this.setState({ products });
   };
 
+  countCart = () => {
+    const getLocalItem = localStorage.getItem('produtos');
+    const carrinho = JSON.parse(getLocalItem);
+    if (carrinho === null) {
+      this.setState({ carrinhoLength: 0 });
+    } else {
+      this.setState({ carrinhoLength: carrinho.length });
+    }
+  };
+
   render() {
-    const { categories, alvo, products } = this.state;
+    const { categories, alvo, products, carrinhoLength } = this.state;
     return (
       <div
         data-testid="home-initial-message"
@@ -59,6 +75,7 @@ export default class Pesquisa extends Component {
           Pesquisar
         </button>
         <Link to="/carrinho" data-testid="shopping-cart-button">Carrinho</Link>
+        <h3 data-testid="shopping-cart-size">{ carrinhoLength }</h3>
         { categories.map((categorie) => (
           <div key={ categorie.id }>
             <label htmlFor={ categorie.id } data-testid="category">
@@ -72,7 +89,7 @@ export default class Pesquisa extends Component {
             </label>
           </div>
         ))}
-        <CriarProdutos produtos={ products } />
+        <CriarProdutos produtos={ products } countCart={ this.countCart } />
       </div>
     );
   }

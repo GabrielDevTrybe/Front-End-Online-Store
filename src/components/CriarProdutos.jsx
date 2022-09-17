@@ -7,18 +7,22 @@ export default class CriarProdutos extends Component {
     carrinho: [],
   };
 
-  // componentDidMount() {
-  //   const getLocalItem = localStorage.getItem('produtos');
-  //   const carrinho = JSON.parse(getLocalItem);
-  //   this.setState({ carrinho });
-  // }
+  componentDidMount() {
+    const getLocalItem = localStorage.getItem('produtos');
+    const carrinho = JSON.parse(getLocalItem);
+    if (carrinho !== null) {
+      this.setState({ carrinho });
+    }
+  }
 
   addCart = (produto) => {
     const { carrinho } = this.state;
+    const { countCart } = this.props;
     carrinho.push(produto);
     const stringify = JSON.stringify(carrinho);
     localStorage.setItem('produtos', stringify);
     this.setState({ carrinho });
+    countCart();
   };
 
   render() {
@@ -59,4 +63,5 @@ export default class CriarProdutos extends Component {
 
 CriarProdutos.propTypes = {
   produtos: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  countCart: PropTypes.func.isRequired,
 };
