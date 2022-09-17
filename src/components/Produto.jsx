@@ -8,13 +8,16 @@ export default class Produto extends Component {
   state = {
     produto: {},
     carrinho: [],
+    carrinhoLength: 0,
   };
 
   async componentDidMount() {
     await this.getProduct();
-    // const getLocalItem = localStorage.getItem('produtos');
-    // const carrinho = JSON.parse(getLocalItem);
-    // this.setState({ carrinho });
+    const getLocalItem = localStorage.getItem('produtos');
+    const carrinho = JSON.parse(getLocalItem);
+    if (carrinho !== null) {
+      this.setState({ carrinhoLength: carrinho.length, carrinho });
+    }
   }
 
   addCart = (produto) => {
@@ -31,8 +34,18 @@ export default class Produto extends Component {
     this.setState({ produto });
   };
 
+  countCart = () => {
+    const getLocalItem = localStorage.getItem('produtos');
+    const carrinho = JSON.parse(getLocalItem);
+    if (carrinho === null) {
+      this.setState({ carrinhoLength: 0 });
+    } else {
+      this.setState({ carrinhoLength: carrinho.length });
+    }
+  };
+
   render() {
-    const { produto } = this.state;
+    const { produto, carrinhoLength } = this.state;
     return (
       <div data-testid="product">
         <img
@@ -43,9 +56,10 @@ export default class Produto extends Component {
         <h1 data-testid="product-detail-name">{ produto.title }</h1>
         <p data-testid="product-detail-price">{ produto.price }</p>
         <Link data-testid="shopping-cart-button" to="/carrinho">Carrinho</Link>
+        <h3 data-testid="shopping-cart-size">{ carrinhoLength }</h3>
         <button
           type="button"
-          onClick={ () => this.addCart(produto) }
+          onClick={ () => { this.addCart(produto); this.countCart(); } }
           data-testid="product-detail-add-to-cart"
         >
           Adicionar ao carrinho
