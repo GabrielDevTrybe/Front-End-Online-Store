@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 export default class Carrinho extends Component {
   state = {
@@ -81,35 +82,39 @@ export default class Carrinho extends Component {
       );
     }
     return (
-      [carrinhoSemRepetições.map((produto) => (
-        <div key={ produto.id }>
-          <h3 data-testid="shopping-cart-product-name">{ produto.title }</h3>
-          <img src={ produto.thumbnail } alt={ produto.title } />
-          <p>{ produto.price }</p>
-          <input
-            type="button"
-            value="+"
-            data-testid="product-increase-quantity"
-            onClick={ this.increaseQuantity }
-            name={ produto.id }
-          />
-          <p data-testid="shopping-cart-product-quantity">{ this.contador(produto) }</p>
-          <input
-            type="button"
-            value="-"
-            data-testid="product-decrease-quantity"
-            onClick={ this.decreaseQuantity }
-            name={ produto.id }
-          />
-          <input
-            type="button"
-            value="Remover Produto"
-            data-testid="remove-product"
-            name={ produto.id }
-            onClick={ this.removeItem }
-          />
-        </div>
-      ))]
+      <>
+        <h1>Seu carrinho</h1>
+        <Link to="/checkout" data-testid="checkout-products">Finalizar Compra</Link>
+        {carrinhoSemRepetições.map((produto) => (
+          <div key={ produto.id }>
+            <h3 data-testid="shopping-cart-product-name">{ produto.title }</h3>
+            <img src={ produto.thumbnail } alt={ produto.title } />
+            <p>{ produto.price }</p>
+            <input
+              type="button"
+              value="+"
+              data-testid="product-increase-quantity"
+              onClick={ this.increaseQuantity }
+              name={ produto.id }
+            />
+            <p data-testid="shopping-cart-product-quantity">{ this.contador(produto) }</p>
+            <input
+              type="button"
+              value="-"
+              data-testid="product-decrease-quantity"
+              onClick={ this.decreaseQuantity }
+              name={ produto.id }
+            />
+            <input
+              type="button"
+              value="Remover Produto"
+              data-testid="remove-product"
+              name={ produto.id }
+              onClick={ this.removeItem }
+            />
+          </div>
+        ))}
+      </>
     );
   }
 }
