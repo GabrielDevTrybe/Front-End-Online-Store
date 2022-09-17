@@ -39,7 +39,6 @@ export default class Carrinho extends Component {
     const { name } = target;
     const { carrinho } = this.state;
     const produtoIncrementado = carrinho.find((item) => item.id === name);
-    console.log(produtoIncrementado);
     if (produtoIncrementado.available_quantity > this.contador(produtoIncrementado)) {
       carrinho.push(produtoIncrementado);
       const stringified = JSON.stringify(carrinho);
