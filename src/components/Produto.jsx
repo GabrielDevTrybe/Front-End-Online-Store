@@ -64,7 +64,7 @@ export default class Produto extends Component {
         >
           Adicionar ao carrinho
         </button>
-        <FormsAvaliação />
+        <FormsAvaliação produto={ produto } />
       </div>
     );
   }
